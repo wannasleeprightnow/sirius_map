@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Body, Depends
 
-from config import API_VERSION
 from dependencies import comment_service
 from services.comment import CommentService
 from schemas.comment import Comment, CommentId
 
-router = APIRouter(prefix=API_VERSION + "comment", tags=["comment"])
+router = APIRouter(prefix="/comment", tags=["comment"])
 
 
 @router.get("")

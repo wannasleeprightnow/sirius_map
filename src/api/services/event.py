@@ -1,5 +1,5 @@
 from models.event import EventModel
-from schemas.event import Event, UserEvent, EventId, UserEventId
+from schemas.event import Event, UserEvent, EventId
 from repositories.event import EventRepository
 
 

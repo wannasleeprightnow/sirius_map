@@ -1,15 +1,18 @@
 import asyncio
 
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from routers.comment import router as comment_router
 from routers.event import router as event_router
 from routers.location import router as location_router
+from routers.map import router as map_router
+from routers.user import router as user_router
 
 from db.database import create_tables
 
 app = FastAPI(title="sirius_map")
+main_router = APIRouter()
 
 origins = ["127.0.0.1:8000"]
 
@@ -30,9 +33,12 @@ app.add_middleware(
 
 def main():
     asyncio.run(create_tables())
-    app.include_router(comment_router)
-    app.include_router(event_router)
-    app.include_router(location_router)
+    main_router.include_router(comment_router)
+    main_router.include_router(event_router)
+    main_router.include_router(location_router)
+    main_router.include_router(map_router)
+    main_router.include_router(user_router)
+    app.include_router(main_router)
     uvicorn.run(app=app, host="127.0.0.1", port=8000)
 
 

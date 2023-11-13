@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Body, Depends
 
-from config import API_VERSION
 from dependencies import event_service
 from services.event import EventService
 from schemas.event import Event, EventId, UserEvent
 
-router = APIRouter(prefix=API_VERSION + "event", tags=["event"])
+router = APIRouter(prefix="/event", tags=["event"])
 
 
 @router.get("")

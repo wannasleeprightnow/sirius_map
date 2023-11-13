@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Body, Depends
 
-from config import API_VERSION
 from dependencies import location_service
 from services.location import LocationService
 from schemas.location import Location, LocationId, UserLocation
 
-router = APIRouter(prefix=API_VERSION + "location", tags=["location"])
+router = APIRouter(prefix="/location", tags=["location"])
 
 
 @router.get("")
