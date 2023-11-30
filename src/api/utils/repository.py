@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from sqlalchemy import insert, select
 
-from db.database import async_session_maker
+from db.db import async_session_maker
 
 
 class AbstractRepository(ABC):
@@ -24,10 +24,10 @@ class Repository(AbstractRepository):
             result = await session.execute(query)
             return result.scalars().all()
 
-    async def insert_one(self, data: dict):
+    async def insert_one(self, data: dict) -> model:
         async with async_session_maker() as session:
             stmt = (insert(self.model)
-                    .values(**data).returning(self.model.id))
+                    .values(**data).returning(self.model))
             res = await session.execute(stmt)
             await session.commit()
             return res.scalar_one()

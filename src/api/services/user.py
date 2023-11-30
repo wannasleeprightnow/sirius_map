@@ -17,10 +17,8 @@ class UserService:
                 status_code=400,
                 detail="User already exists."
             )
-        print(dict(user))
         user.password = UserModel.hash_password(user.password)
-        await self.user_repo.insert_one(dict(user))
-        return {"status": "successfull"}
+        return await self.user_repo.insert_one(user.model_dump())
 
     async def login(
         self, user: UserLogin

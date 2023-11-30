@@ -2,12 +2,12 @@ from fastapi import APIRouter, Body, Depends
 
 from dependencies import event_service
 from services.event import EventService
-from schemas.event import Event, EventId, UserEvent
+from schemas.event import Event, EventAdd, EventId, UserEvent
 
 router = APIRouter(prefix="/event", tags=["event"])
 
 
-@router.get("")
+@router.get("", response_model=list[Event])
 async def get_events(
     event_service: EventService = Depends(event_service)
 ):
@@ -15,7 +15,7 @@ async def get_events(
     return events
 
 
-@router.get("/favorite/{user_id}/")
+@router.get("/favorite/{user_id}/", response_model=list[Event])
 async def get_favorite_user_events(
     user_id: int,
     event_service: EventService = Depends(event_service)
@@ -24,16 +24,16 @@ async def get_favorite_user_events(
     return events
 
 
-@router.post("")
+@router.post("", response_model=Event)
 async def post_event(
-    event: Event = Body(),
+    event: EventAdd = Body(),
     event_service: EventService = Depends(event_service),
 ):
     event = await event_service.post_event(event)
     return event
 
 
-@router.post("/favorite/")
+@router.post("/favorite/", response_model=UserEvent)
 async def post_event_to_user_favorite(
     event: UserEvent = Body(),
     event_service: EventService = Depends(event_service),
@@ -42,7 +42,7 @@ async def post_event_to_user_favorite(
     return event
 
 
-@router.delete("/favorite/")
+@router.delete("/favorite/", response_model=UserEvent)
 async def delete_event_from_favorite(
     event: UserEvent = Body(),
     event_service: EventService = Depends(event_service),
@@ -50,7 +50,7 @@ async def delete_event_from_favorite(
     return await event_service.delete_event_from_favorite(event)
 
 
-@router.delete("")
+@router.delete("", response_model=Event)
 async def delete_event(
     event: EventId = Body(),
     event_service: EventService = Depends(event_service),

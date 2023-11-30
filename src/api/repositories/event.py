@@ -5,7 +5,7 @@ sys.path.append(os.path.join(os.getcwd(), ".."))
 
 from sqlalchemy import and_, delete, insert, select
 
-from db.database import async_session_maker
+from db.db import async_session_maker
 from models.event import EventModel
 from models.user_event import UserEventModel
 from utils.repository import Repository
@@ -28,7 +28,7 @@ class EventRepository(Repository):
 
     async def insert_one_to_favorite(
         self, event_id: int, user_id: int
-    ) -> dict:
+    ) -> UserEventModel:
         async with async_session_maker() as session:
             stmt = (insert(UserEventModel)
                     .values(user_id=user_id, event_id=event_id)
@@ -37,20 +37,21 @@ class EventRepository(Repository):
             await session.commit()
             return res.scalar_one()
 
-    async def delete_one(self, event_id: int) -> dict:
+    async def delete_one(self, event_id: int) -> EventModel:
         async with async_session_maker() as session:
             stmt = (delete(EventModel)
-                    .where(EventModel.id == event_id))
-            await session.execute(stmt)
+                    .where(EventModel.id == event_id)
+                    .returning(EventModel))
+            res = await session.execute(stmt)
             stmt = (delete(UserEventModel)
                     .where(UserEventModel.event_id == event_id))
             await session.execute(stmt)
             await session.commit()
-            return {"status": "success"}
+            return res.scalar_one()
 
     async def delete_one_from_favorite(
         self, event_id: int, user_id: int
-    ) -> dict:
+    ) -> UserEventModel:
         async with async_session_maker() as session:
             stmt = (delete(UserEventModel)
                     .where(
@@ -58,7 +59,7 @@ class EventRepository(Repository):
                             UserEventModel.user_id == user_id,
                             UserEventModel.event_id == event_id
                             )
-                        ))
-        await session.execute(stmt)
+                        ).returning(UserEventModel))
+        res = await session.execute(stmt)
         await session.commit()
-        return {"status": "success"}
+        return res.scalar_one()

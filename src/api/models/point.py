@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column
 
-from db.database import Base
+from db.db import Base
 
 
 class PointModel(Base):

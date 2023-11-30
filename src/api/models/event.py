@@ -3,8 +3,10 @@ import datetime
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 
+from db.db import Base
 
-class EventModel:
+
+class EventModel(Base):
     __tablename__ = "event"
 
     id: Mapped[int] = mapped_column(primary_key=True)

@@ -3,9 +3,9 @@ import sys
 
 sys.path.append(os.path.join(os.getcwd(), ".."))
 
-from sqlalchemy import and_, delete, insert, select, update
+from sqlalchemy import select
 
-from db.database import async_session_maker
+from db.db import async_session_maker
 from models.user import UserModel
 from utils.repository import Repository
 

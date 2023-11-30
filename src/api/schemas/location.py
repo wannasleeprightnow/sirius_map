@@ -2,13 +2,21 @@ from pydantic import BaseModel
 
 
 class Location(BaseModel):
+    id: int
     title: str
     description: str | None
     image: bytes | None
     point_id: int
 
 
-class UserLocationId:
+class LocationAdd(BaseModel):
+    title: str
+    description: str | None
+    image: bytes | None
+    point_id: int
+
+
+class UserLocationId(BaseModel):
     user_id: int
 
 

@@ -1,5 +1,9 @@
+import time
+
+from fastapi import HTTPException
+
 from models.comment import CommentModel
-from schemas.comment import Comment, CommentId
+from schemas.comment import CommentId, CommentAdd
 from repositories.comment import CommentRepository
 
 
@@ -9,15 +13,20 @@ class CommentService:
 
     async def get_comments(self) -> list[CommentModel]:
         comments = await self.comment_repo.find_all()
+        for comment in comments:
+            if time.time() - comment.created_at >= 3600:
+                await self.comment_repo.delete_one(comment.id)
+        comments = await self.comment_repo.find_all()
         return comments
 
     async def post_comment(
-        self, comment: Comment
-    ) -> CommentModel:
-        comment = await self.comment_repo.insert_one(dict(comment))
-        return comment
+        self, comment: CommentAdd
+    ):
+        res = await self.comment_repo.insert_one(comment.model_dump())
+        return res
 
     async def delete_comment(
         self, comment: CommentId
     ) -> dict:
-        return await self.comment_repo.delete_one(**dict(comment))
+        res = await self.comment_repo.delete_one(**comment.model_dump())
+        return res

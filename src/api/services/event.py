@@ -1,5 +1,6 @@
+from api.models.user_event import UserEventModel
 from models.event import EventModel
-from schemas.event import Event, UserEvent, EventId
+from schemas.event import EventAdd, UserEvent, EventId
 from repositories.event import EventRepository
 
 
@@ -18,23 +19,21 @@ class EventService:
         return events
 
     async def post_event(
-        self, event: Event
+        self, event: EventAdd
     ) -> EventModel:
-        event = await self.event_repo.insert_one(dict(event))
-        return event
+        return await self.event_repo.insert_one(event.model_dump())
 
     async def post_event_to_user_favorite(
         self, event: UserEvent
-    ) -> EventModel:
-        event = await self.event_repo.insert_one_to_favorite(**dict(event))
-        return event
+    ) -> UserEventModel:
+        return await self.event_repo.insert_one_to_favorite(**event.model_dump())
 
     async def delete_event_from_favorite(
         self, event: UserEvent
-    ) -> dict:
-        return await self.event_repo.delete_one_from_favorite(**(dict(event)))
+    ) -> UserEventModel:
+        return await self.event_repo.delete_one_from_favorite(**event.model_dump())
 
     async def delete_event(
         self, event: EventId
-    ) -> dict:
-        return await self.event_repo.delete_one(**(dict(event)))
+    ) -> EventModel:
+        return await self.event_repo.delete_one(**event.model_dump())

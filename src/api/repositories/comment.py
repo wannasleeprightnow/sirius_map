@@ -3,9 +3,9 @@ import os
 
 sys.path.append(os.path.join(os.getcwd(), ".."))
 
-from sqlalchemy import delete
+from sqlalchemy import delete, insert
 
-from db.database import async_session_maker
+from db.db import async_session_maker
 from models.comment import CommentModel
 from utils.repository import Repository
 
@@ -13,10 +13,11 @@ from utils.repository import Repository
 class CommentRepository(Repository):
     model = CommentModel
 
-    async def delete_one(self, comment_id: int) -> dict:
+    async def delete_one(self, comment_id: int) -> CommentModel:
         async with async_session_maker() as session:
             stmt = (delete(CommentModel)
-                    .where(CommentModel.id == comment_id))
-            await session.execute(stmt)
+                    .where(CommentModel.id == comment_id)
+                    .returning(self.model))
+            res = await session.execute(stmt)
             await session.commit()
-            return {"status": "success"}
+            return res.scalar_one()
