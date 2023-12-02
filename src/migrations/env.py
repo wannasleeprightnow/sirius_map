@@ -12,11 +12,11 @@ from settings import *
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(section, "POSTGRES_USER", POSTGRES_USER)
-config.set_section_option(section, "POSTGRES_PASSWORD", POSTGRES_PASSWORD)
-config.set_section_option(section, "POSTGRES_HOST", POSTGRES_HOST)
-config.set_section_option(section, "POSTGRES_PORT", POSTGRES_PORT)
-config.set_section_option(section, "POSTGRES_DB", POSTGRES_DB)
+config.set_section_option(section, "POSTGRES_USER", str(POSTGRES_USER))
+config.set_section_option(section, "POSTGRES_PASSWORD", str(POSTGRES_PASSWORD))
+config.set_section_option(section, "POSTGRES_HOST", str(POSTGRES_HOST))
+config.set_section_option(section, "POSTGRES_PORT", str(POSTGRES_PORT))
+config.set_section_option(section, "POSTGRES_DB", str(POSTGRES_DB))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
