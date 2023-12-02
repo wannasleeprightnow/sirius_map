@@ -3,7 +3,7 @@ import time
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from db.db import Base
+from models.base import Base
 
 
 class CommentModel(Base):
@@ -20,7 +20,3 @@ class CommentModel(Base):
     user_id: Mapped[int] = mapped_column(
         ForeignKey("user.id", ondelete="CASCADE")
     )
-
-    def __repr__(self):
-        return f"{self.id=} {self.comment_text=} {self.created_at=} \
-            {self.point_id=} {self.user_id=}"

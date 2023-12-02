@@ -2,7 +2,7 @@ import bcrypt
 from sqlalchemy import LargeBinary, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from db.db import Base
+from models.base import Base
 
 
 class UserModel(Base):
@@ -27,8 +27,3 @@ class UserModel(Base):
             first_password.encode("utf-8"),
             second_password,
             )
-
-    def __repr__(self):
-        return f"{self.id=} {self.username=} {self.password=} \
-            {self.name=} {self.phone_number=} {self.user_type=} \
-            self.user_image"

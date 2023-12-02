@@ -1,11 +1,6 @@
-import os
-import sys
-
-sys.path.append(os.path.join(os.getcwd(), ".."))
-
 from sqlalchemy import select
 
-from db.db import async_session_maker
+from models.base import async_session_maker
 from models.user import UserModel
 from utils.repository import Repository
 

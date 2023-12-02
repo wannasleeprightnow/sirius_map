@@ -1,11 +1,6 @@
-import sys
-import os
+from sqlalchemy import delete
 
-sys.path.append(os.path.join(os.getcwd(), ".."))
-
-from sqlalchemy import delete, insert
-
-from db.db import async_session_maker
+from models.base import async_session_maker
 from models.comment import CommentModel
 from utils.repository import Repository
 

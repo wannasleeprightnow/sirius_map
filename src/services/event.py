@@ -1,4 +1,4 @@
-from api.models.user_event import UserEventModel
+from models.user_event import UserEventModel
 from models.event import EventModel
 from schemas.event import EventAdd, UserEvent, EventId
 from repositories.event import EventRepository

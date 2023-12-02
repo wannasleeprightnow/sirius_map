@@ -1,4 +1,4 @@
-from api.models.user_location import UserLocationModel
+from models.user_location import UserLocationModel
 from models.location import LocationModel
 from schemas.location import Location, LocationAdd, LocationId, UserLocation
 from repositories.location import LocationRepository

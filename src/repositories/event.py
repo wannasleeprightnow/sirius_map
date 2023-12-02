@@ -1,11 +1,6 @@
-import os
-import sys
-
-sys.path.append(os.path.join(os.getcwd(), ".."))
-
 from sqlalchemy import and_, delete, insert, select
 
-from db.db import async_session_maker
+from models.base import async_session_maker
 from models.event import EventModel
 from models.user_event import UserEventModel
 from utils.repository import Repository

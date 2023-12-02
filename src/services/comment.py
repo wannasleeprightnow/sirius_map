@@ -1,7 +1,5 @@
 import time
 
-from fastapi import HTTPException
-
 from models.comment import CommentModel
 from schemas.comment import CommentId, CommentAdd
 from repositories.comment import CommentRepository

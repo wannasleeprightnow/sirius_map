@@ -1,8 +1,6 @@
 aiosqlite
 bcrypt
 fastapi
-pillow
 python-dotenv
 SQLAlchemy
-uvicorn
 gunicorn

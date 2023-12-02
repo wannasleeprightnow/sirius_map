@@ -8,8 +8,8 @@ COPY . .
 
 RUN pip3 install --upgrade pip
 
-RUN pip3 install -r requirements/dev.txt
+RUN pip3 install -r requirements/prod.txt
 
-WORKDIR src/api
+WORKDIR /src
 
-CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8080
+CMD gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8080

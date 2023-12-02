@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey, LargeBinary
 from sqlalchemy.orm import Mapped, mapped_column
 
-from db.db import Base
+from models.base import Base
 
 
 class LocationModel(Base):
@@ -12,7 +12,3 @@ class LocationModel(Base):
     description: Mapped[str | None]
     image: Mapped[bytes | None] = mapped_column(LargeBinary)
     point_id: Mapped[int] = mapped_column(ForeignKey("point.id", ondelete="CASCADE"))
-
-    def __repr__(self):
-        return f"{self.id=} {self.title=} {self.description=} \
-            self.image {self.point_id=}"

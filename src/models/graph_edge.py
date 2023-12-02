@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped
 
-from db.db import Base
+from models.base import Base
 
 
 class GraphEdge(Base):
@@ -14,7 +14,3 @@ class GraphEdge(Base):
     second_point_id: Mapped[int] = mapped_column(
         ForeignKey("point.id", on_delete="CASCADE")
     )
-
-    def __repr__(self):
-        return f"{self.id=} {self.first_point_id=}\
-            {self.second_point_id=}"

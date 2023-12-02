@@ -3,7 +3,7 @@ import datetime
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from db.db import Base
+from models.base import Base
 
 
 class EventModel(Base):
@@ -17,8 +17,3 @@ class EventModel(Base):
     location_id: Mapped[int] = mapped_column(
         ForeignKey("location.id", ondelete="CASCADE")
     )
-
-    def __repr__(self):
-        return f"{self.id=} {self.title=} {self.description=} \
-            {self.start_time=} {self.finish_time=} \
-                {self.location_id=}"

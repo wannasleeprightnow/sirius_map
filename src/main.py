@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers.comment import router as comment_router
 from routers.event import router as event_router
 from routers.location import router as location_router
-from routers.map import router as map_router
+from routers.point import router as point_router
 from routers.user import router as user_router
 
 app = FastAPI(title="sirius_map")
@@ -30,6 +30,6 @@ app.add_middleware(
 main_router.include_router(comment_router)
 main_router.include_router(event_router)
 main_router.include_router(location_router)
-main_router.include_router(map_router)
+main_router.include_router(point_router)
 main_router.include_router(user_router)
 app.include_router(main_router)
