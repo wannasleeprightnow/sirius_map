@@ -10,7 +10,7 @@ from routers.user import router as user_router
 app = FastAPI(title="sirius_map")
 main_router = APIRouter()
 
-origins = ["127.0.0.1:8000"]
+origins = ["127.0.0.1:8080"]
 
 app.add_middleware(
     CORSMiddleware,

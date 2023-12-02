@@ -3,5 +3,5 @@ bcrypt
 fastapi
 python-dotenv
 SQLAlchemy
-gunicorn
 uvicorn
+gunicorn
