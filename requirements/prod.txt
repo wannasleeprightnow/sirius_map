@@ -1,8 +1,10 @@
 aiosqlite
 alembic
+asyncpg
 bcrypt
 fastapi
 python-dotenv
+psycopg2-binary
 SQLAlchemy
 uvicorn
 gunicorn
