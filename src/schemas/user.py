@@ -14,7 +14,7 @@ class UserRegister(BaseModel):
     username: str
     name: str
     phone_number: str
-    password: bytes
+    password: str
 
     @validator("username")
     def validate_username(cls, value):
