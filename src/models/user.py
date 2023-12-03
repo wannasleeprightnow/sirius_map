@@ -1,3 +1,4 @@
+from pickletools import bytes1
 import bcrypt
 from sqlalchemy import LargeBinary, String
 from sqlalchemy.orm import Mapped, mapped_column
@@ -5,12 +6,12 @@ from sqlalchemy.orm import Mapped, mapped_column
 from models.base import Base
 
 
-class UserModel(Base):
+class UserModel:
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String(50), unique=True)
-    password: Mapped[str] = mapped_column(String(25))
+    password: Mapped[bytes]
     name: Mapped[str] = mapped_column(String(25))
     phone_number: Mapped[str] = mapped_column(unique=True)
     user_type: Mapped[str] = mapped_column(String(), default="user")
@@ -25,5 +26,5 @@ class UserModel(Base):
     def check_password(first_password, second_password):
         return bcrypt.checkpw(
             first_password.encode("utf-8"),
-            second_password,
+            second_password.encode("utf-8"),
             )

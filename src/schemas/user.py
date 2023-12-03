@@ -14,7 +14,7 @@ class UserRegister(BaseModel):
     username: str
     name: str
     phone_number: str
-    password: str
+    password: bytes
 
     @validator("username")
     def validate_username(cls, value):
@@ -47,7 +47,7 @@ be no longer than 25 characters."
 
     @validator("password")
     def validate_password(cls, value):
-        if not PASSWORD_CHECK.match(value):
+        if not PASSWORD_CHECK.match(str(value)):
             raise HTTPException(
                 status_code=422,
                 detail="Password must contains letters of both cases and\
@@ -58,13 +58,13 @@ digits and special symbol and be longer than 8 characters."
 
 class UserLogin(BaseModel):
     username: str
-    password: str
+    password: bytes
 
 
 class User(BaseModel):
     id: int
     username: str
-    password: str
+    password: bytes
     name: str
     phone_number: str
     user_type: str
