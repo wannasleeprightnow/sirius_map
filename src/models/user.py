@@ -25,6 +25,6 @@ class UserModel(Base):
     @staticmethod
     def check_password(first_password, second_password):
         return bcrypt.checkpw(
-            first_password.encode("utf-8"),
-            second_password.encode("utf-8"),
+            first_password,
+            second_password,
             )

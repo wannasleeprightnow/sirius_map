@@ -7,16 +7,24 @@ from alembic import context
 
 
 from settings import *
+from models.base import Base
+from models.comment import CommentModel
+from models.event import EventModel
+from models.location import LocationModel
+from models.point import PointModel
+from models.user_event import UserEventModel
+from models.user_location import UserLocationModel
+from models.user import UserModel
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(section, "POSTGRES_USER", str(POSTGRES_USER))
-config.set_section_option(section, "POSTGRES_PASSWORD", str(POSTGRES_PASSWORD))
-config.set_section_option(section, "POSTGRES_HOST", str(POSTGRES_HOST))
+config.set_section_option(section, "POSTGRES_USER", POSTGRES_USER)
+config.set_section_option(section, "POSTGRES_PASSWORD", POSTGRES_PASSWORD)
+config.set_section_option(section, "POSTGRES_HOST", POSTGRES_HOST)
 config.set_section_option(section, "POSTGRES_PORT", POSTGRES_PORT)
-config.set_section_option(section, "POSTGRES_DB", str(POSTGRES_DB))
+config.set_section_option(section, "POSTGRES_DB", POSTGRES_DB)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -25,9 +33,9 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from models import base
+
 # target_metadata = mymodel.Base.metadata
-target_metadata = base.Base.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

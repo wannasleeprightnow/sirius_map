@@ -24,11 +24,6 @@ async_engine = create_async_engine(
     echo=True,
 )
 
-# async_engine = create_async_engine(
-#     "sqlite+aiosqlite:///db.sqlite"
-#     echo=True,
-# )
-
 async_session_maker = async_sessionmaker(
     async_engine, expire_on_commit=False
 )
